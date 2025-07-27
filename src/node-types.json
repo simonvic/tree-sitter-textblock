@@ -1,0 +1,30 @@
+[
+  {
+    "type": "text",
+    "named": true,
+    "root": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "content",
+          "named": true
+        },
+        {
+          "type": "incidental_ws",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "content",
+    "named": true
+  },
+  {
+    "type": "incidental_ws",
+    "named": true
+  }
+]

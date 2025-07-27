@@ -1,0 +1,40 @@
+{
+  "$schema": "https://tree-sitter.github.io/tree-sitter/assets/schemas/config.schema.json",
+  "grammars": [
+    {
+      "name": "textblock",
+      "camelcase": "TextBlock",
+      "title": "TextBlock",
+      "scope": "source.textblock",
+      "file-types": [
+        "textblock"
+      ],
+      "injection-regex": "^textblock$",
+      "class-name": "TreeSitterTextblock"
+    }
+  ],
+  "metadata": {
+    "version": "0.1.0",
+    "license": "MIT",
+    "description": "Text block and multiline string parser",
+    "authors": [
+      {
+        "name": "simonvic",
+        "email": "simonvic.dev@gmail.com",
+        "url": "https://github.com/simonvic"
+      }
+    ],
+    "links": {
+      "repository": "https://github.com/simonvic/tree-sitter-textblock"
+    }
+  },
+  "bindings": {
+    "c": false,
+    "go": false,
+    "node": false,
+    "python": false,
+    "rust": false,
+    "swift": false,
+    "zig": false
+  }
+}
