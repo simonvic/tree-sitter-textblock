@@ -84,7 +84,7 @@ bool tree_sitter_textblock_external_scanner_scan(void* payload, TSLexer* lexer,
 
 	// first scan to count minimum amount of incidental whitespaces
 	if (scanner->incidentalWSWidth == -1) {
-	    // TODO: replace dummy with first_line rule
+		// TODO: replace dummy with first_line rule
 		lexer->result_symbol = _DUMMY;
 		lexer->mark_end(lexer);
 		while (scanner->isFirstLine && !eof(lexer)) {
@@ -103,6 +103,11 @@ bool tree_sitter_textblock_external_scanner_scan(void* payload, TSLexer* lexer,
 		scanner->indentationLeader = lexer->lookahead;
 		int minWidth = -1;
 		while (!eof(lexer)) {
+			// ignore empty lines
+			if (lexer->lookahead == '\n' && lexer->get_column(lexer) == 0) {
+				skip(lexer);
+				continue;
+			}
 			int width = 0;
 			// count whitespaces
 			while (lexer->lookahead == scanner->indentationLeader &&
@@ -132,6 +137,12 @@ bool tree_sitter_textblock_external_scanner_scan(void* payload, TSLexer* lexer,
 	// incidental whitespaces are ignored in the first line
 	if (valid_symbols[INCIDENTAL_WS] && !scanner->isFirstLine &&
 	    scanner->incidentalWSWidth >= 1) {
+		// incidental whitespaces in empty lines are ignored
+		if (lexer->lookahead == '\n' && lexer->get_column(lexer) == 0) {
+			consume(lexer);
+			lexer->result_symbol = TEXTBLOCK_FRAGMENT;
+			return true;
+		}
 		lexer->result_symbol = INCIDENTAL_WS;
 		int parsedIncidentalWS = 0;
 		while (parsedIncidentalWS < scanner->incidentalWSWidth) {

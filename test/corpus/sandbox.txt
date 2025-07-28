@@ -1,3 +1,5 @@
+vim: list listchars=eol\:¬,extends\:>,precedes\:<,space\:⋅,tab\:>\ ,trail\:⋅
+
 ================================================================================
 sandbox
 ================================================================================
@@ -55,4 +57,32 @@ first line
 	(textblock_fragment)
 	(textblock_fragment)
 	(textblock_fragment)
+	(textblock_fragment))
+
+================================================================================
+middle empty line
+================================================================================
+first line
+    foo
+
+  bar
+   baz
+--------------------------------------------------------------------------------
+(textblock
+	(textblock_fragment)
+	(incidental_ws)
+	(textblock_fragment)
+	(textblock_fragment)
+	(incidental_ws)
+	(textblock_fragment)
+	(incidental_ws)
+	(textblock_fragment))
+
+================================================================================
+only empty line
+================================================================================
+first line
+
+--------------------------------------------------------------------------------
+(textblock
 	(textblock_fragment))
