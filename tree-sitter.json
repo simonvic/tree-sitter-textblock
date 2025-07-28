@@ -9,6 +9,7 @@
       "file-types": [
         "textblock"
       ],
+      "highlights": "queries/highlights.scm",
       "injection-regex": "^textblock$",
       "class-name": "TreeSitterTextblock"
     }
