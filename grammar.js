@@ -16,6 +16,7 @@ module.exports = grammar({
     text: $ => seq(
       optional($._dummy),
       repeat1(seq(optional($.incidental_ws), $.content)),
+      optional($.incidental_ws),
     )
   }
 });
