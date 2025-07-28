@@ -1,4 +1,3 @@
-((incidental_ws) @nontext
-  (#set! priority 105))
+(incidental_ws) @comment
 
 (textblock_fragment) @string
