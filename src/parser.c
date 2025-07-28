@@ -22,27 +22,27 @@
 enum ts_symbol_identifiers {
   sym__dummy = 1,
   sym_incidental_ws = 2,
-  sym_content = 3,
-  sym_text = 4,
-  aux_sym_text_repeat1 = 5,
+  sym_textblock_fragment = 3,
+  sym_textblock = 4,
+  aux_sym_textblock_repeat1 = 5,
 };
 
 static const char * const ts_symbol_names[] = {
   [ts_builtin_sym_end] = "end",
   [sym__dummy] = "_dummy",
   [sym_incidental_ws] = "incidental_ws",
-  [sym_content] = "content",
-  [sym_text] = "text",
-  [aux_sym_text_repeat1] = "text_repeat1",
+  [sym_textblock_fragment] = "textblock_fragment",
+  [sym_textblock] = "textblock",
+  [aux_sym_textblock_repeat1] = "textblock_repeat1",
 };
 
 static const TSSymbol ts_symbol_map[] = {
   [ts_builtin_sym_end] = ts_builtin_sym_end,
   [sym__dummy] = sym__dummy,
   [sym_incidental_ws] = sym_incidental_ws,
-  [sym_content] = sym_content,
-  [sym_text] = sym_text,
-  [aux_sym_text_repeat1] = aux_sym_text_repeat1,
+  [sym_textblock_fragment] = sym_textblock_fragment,
+  [sym_textblock] = sym_textblock,
+  [aux_sym_textblock_repeat1] = aux_sym_textblock_repeat1,
 };
 
 static const TSSymbolMetadata ts_symbol_metadata[] = {
@@ -58,15 +58,15 @@ static const TSSymbolMetadata ts_symbol_metadata[] = {
     .visible = true,
     .named = true,
   },
-  [sym_content] = {
+  [sym_textblock_fragment] = {
     .visible = true,
     .named = true,
   },
-  [sym_text] = {
+  [sym_textblock] = {
     .visible = true,
     .named = true,
   },
-  [aux_sym_text_repeat1] = {
+  [aux_sym_textblock_repeat1] = {
     .visible = false,
     .named = false,
   },
@@ -129,32 +129,32 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
     [ts_builtin_sym_end] = ACTIONS(1),
     [sym__dummy] = ACTIONS(1),
     [sym_incidental_ws] = ACTIONS(1),
-    [sym_content] = ACTIONS(1),
+    [sym_textblock_fragment] = ACTIONS(1),
   },
   [STATE(1)] = {
-    [sym_text] = STATE(10),
-    [aux_sym_text_repeat1] = STATE(2),
+    [sym_textblock] = STATE(10),
+    [aux_sym_textblock_repeat1] = STATE(2),
     [sym__dummy] = ACTIONS(3),
     [sym_incidental_ws] = ACTIONS(5),
-    [sym_content] = ACTIONS(7),
+    [sym_textblock_fragment] = ACTIONS(7),
   },
   [STATE(2)] = {
-    [aux_sym_text_repeat1] = STATE(4),
+    [aux_sym_textblock_repeat1] = STATE(4),
     [ts_builtin_sym_end] = ACTIONS(9),
     [sym_incidental_ws] = ACTIONS(11),
-    [sym_content] = ACTIONS(13),
+    [sym_textblock_fragment] = ACTIONS(13),
   },
   [STATE(3)] = {
-    [aux_sym_text_repeat1] = STATE(4),
+    [aux_sym_textblock_repeat1] = STATE(4),
     [ts_builtin_sym_end] = ACTIONS(15),
     [sym_incidental_ws] = ACTIONS(17),
-    [sym_content] = ACTIONS(13),
+    [sym_textblock_fragment] = ACTIONS(13),
   },
   [STATE(4)] = {
-    [aux_sym_text_repeat1] = STATE(4),
+    [aux_sym_textblock_repeat1] = STATE(4),
     [ts_builtin_sym_end] = ACTIONS(19),
     [sym_incidental_ws] = ACTIONS(21),
-    [sym_content] = ACTIONS(24),
+    [sym_textblock_fragment] = ACTIONS(24),
   },
 };
 
@@ -163,27 +163,27 @@ static const uint16_t ts_small_parse_table[] = {
     ACTIONS(5), 1,
       sym_incidental_ws,
     ACTIONS(27), 1,
-      sym_content,
+      sym_textblock_fragment,
     STATE(3), 1,
-      aux_sym_text_repeat1,
+      aux_sym_textblock_repeat1,
   [10] = 1,
     ACTIONS(19), 3,
       sym_incidental_ws,
-      sym_content,
+      sym_textblock_fragment,
       ts_builtin_sym_end,
   [16] = 2,
     ACTIONS(15), 1,
       ts_builtin_sym_end,
     ACTIONS(29), 1,
-      sym_content,
+      sym_textblock_fragment,
   [23] = 2,
     ACTIONS(29), 1,
-      sym_content,
+      sym_textblock_fragment,
     ACTIONS(31), 1,
       ts_builtin_sym_end,
   [30] = 1,
     ACTIONS(29), 1,
-      sym_content,
+      sym_textblock_fragment,
   [34] = 1,
     ACTIONS(33), 1,
       ts_builtin_sym_end,
@@ -204,44 +204,44 @@ static const TSParseActionEntry ts_parse_actions[] = {
   [3] = {.entry = {.count = 1, .reusable = true}}, SHIFT(5),
   [5] = {.entry = {.count = 1, .reusable = true}}, SHIFT(9),
   [7] = {.entry = {.count = 1, .reusable = true}}, SHIFT(2),
-  [9] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_text, 1, 0, 0),
+  [9] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_textblock, 1, 0, 0),
   [11] = {.entry = {.count = 1, .reusable = true}}, SHIFT(7),
   [13] = {.entry = {.count = 1, .reusable = true}}, SHIFT(4),
-  [15] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_text, 2, 0, 0),
+  [15] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_textblock, 2, 0, 0),
   [17] = {.entry = {.count = 1, .reusable = true}}, SHIFT(8),
-  [19] = {.entry = {.count = 1, .reusable = true}}, REDUCE(aux_sym_text_repeat1, 2, 0, 0),
-  [21] = {.entry = {.count = 2, .reusable = true}}, REDUCE(aux_sym_text_repeat1, 2, 0, 0), SHIFT_REPEAT(9),
-  [24] = {.entry = {.count = 2, .reusable = true}}, REDUCE(aux_sym_text_repeat1, 2, 0, 0), SHIFT_REPEAT(4),
+  [19] = {.entry = {.count = 1, .reusable = true}}, REDUCE(aux_sym_textblock_repeat1, 2, 0, 0),
+  [21] = {.entry = {.count = 2, .reusable = true}}, REDUCE(aux_sym_textblock_repeat1, 2, 0, 0), SHIFT_REPEAT(9),
+  [24] = {.entry = {.count = 2, .reusable = true}}, REDUCE(aux_sym_textblock_repeat1, 2, 0, 0), SHIFT_REPEAT(4),
   [27] = {.entry = {.count = 1, .reusable = true}}, SHIFT(3),
   [29] = {.entry = {.count = 1, .reusable = true}}, SHIFT(6),
-  [31] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_text, 3, 0, 0),
+  [31] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_textblock, 3, 0, 0),
   [33] = {.entry = {.count = 1, .reusable = true}},  ACCEPT_INPUT(),
 };
 
 enum ts_external_scanner_symbol_identifiers {
   ts_external_token__dummy = 0,
   ts_external_token_incidental_ws = 1,
-  ts_external_token_content = 2,
+  ts_external_token_textblock_fragment = 2,
 };
 
 static const TSSymbol ts_external_scanner_symbol_map[EXTERNAL_TOKEN_COUNT] = {
   [ts_external_token__dummy] = sym__dummy,
   [ts_external_token_incidental_ws] = sym_incidental_ws,
-  [ts_external_token_content] = sym_content,
+  [ts_external_token_textblock_fragment] = sym_textblock_fragment,
 };
 
 static const bool ts_external_scanner_states[4][EXTERNAL_TOKEN_COUNT] = {
   [1] = {
     [ts_external_token__dummy] = true,
     [ts_external_token_incidental_ws] = true,
-    [ts_external_token_content] = true,
+    [ts_external_token_textblock_fragment] = true,
   },
   [2] = {
     [ts_external_token_incidental_ws] = true,
-    [ts_external_token_content] = true,
+    [ts_external_token_textblock_fragment] = true,
   },
   [3] = {
-    [ts_external_token_content] = true,
+    [ts_external_token_textblock_fragment] = true,
   },
 };
 

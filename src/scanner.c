@@ -4,7 +4,7 @@
 #include <stdint.h>
 #include <stdio.h>
 
-enum TokenType { _DUMMY, INCIDENTAL_WS, CONTENT };
+enum TokenType { _DUMMY, INCIDENTAL_WS, TEXTBLOCK_FRAGMENT };
 
 struct Scanner {
 	/**
@@ -84,6 +84,7 @@ bool tree_sitter_textblock_external_scanner_scan(void* payload, TSLexer* lexer,
 
 	// first scan to count minimum amount of incidental whitespaces
 	if (scanner->incidentalWSWidth == -1) {
+	    // TODO: replace dummy with first_line rule
 		lexer->result_symbol = _DUMMY;
 		lexer->mark_end(lexer);
 		while (scanner->isFirstLine && !eof(lexer)) {
@@ -141,8 +142,8 @@ bool tree_sitter_textblock_external_scanner_scan(void* payload, TSLexer* lexer,
 	}
 
 	// parse rest of the text up to newline as content
-	if (valid_symbols[CONTENT]) {
-		lexer->result_symbol = CONTENT;
+	if (valid_symbols[TEXTBLOCK_FRAGMENT]) {
+		lexer->result_symbol = TEXTBLOCK_FRAGMENT;
 		while (!eof(lexer)) {
 			if (lexer->lookahead == '\n') {
 				consume(lexer);

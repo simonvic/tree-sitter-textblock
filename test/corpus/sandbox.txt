@@ -6,14 +6,14 @@ first line
   bar
    baz
 --------------------------------------------------------------------------------
-(text
-	(content)
+(textblock
+	(textblock_fragment)
 	(incidental_ws)
-	(content)
+	(textblock_fragment)
 	(incidental_ws)
-	(content)
+	(textblock_fragment)
 	(incidental_ws)
-	(content))
+	(textblock_fragment))
 
 ================================================================================
 no ws
@@ -23,11 +23,11 @@ foo
 bar
 baz
 --------------------------------------------------------------------------------
-(text
-	(content)
-	(content)
-	(content)
-	(content))
+(textblock
+	(textblock_fragment)
+	(textblock_fragment)
+	(textblock_fragment)
+	(textblock_fragment))
 
 ================================================================================
 no incidental ws
@@ -37,11 +37,11 @@ first line
 bar
   baz
 --------------------------------------------------------------------------------
-(text
-	(content)
-	(content)
-	(content)
-	(content))
+(textblock
+	(textblock_fragment)
+	(textblock_fragment)
+	(textblock_fragment)
+	(textblock_fragment))
 
 ================================================================================
 mixed indentation leaders
@@ -51,8 +51,8 @@ first line
         bar
         baz
 --------------------------------------------------------------------------------
-(text
-	(content)
-	(content)
-	(content)
-	(content))
+(textblock
+	(textblock_fragment)
+	(textblock_fragment)
+	(textblock_fragment)
+	(textblock_fragment))

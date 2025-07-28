@@ -1,6 +1,6 @@
 [
   {
-    "type": "text",
+    "type": "textblock",
     "named": true,
     "root": true,
     "fields": {},
@@ -9,22 +9,22 @@
       "required": true,
       "types": [
         {
-          "type": "content",
+          "type": "incidental_ws",
           "named": true
         },
         {
-          "type": "incidental_ws",
+          "type": "textblock_fragment",
           "named": true
         }
       ]
     }
   },
   {
-    "type": "content",
+    "type": "incidental_ws",
     "named": true
   },
   {
-    "type": "incidental_ws",
+    "type": "textblock_fragment",
     "named": true
   }
 ]

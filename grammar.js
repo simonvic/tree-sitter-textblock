@@ -10,12 +10,12 @@
 module.exports = grammar({
   name: "textblock",
 
-  externals: $ => [$._dummy, $.incidental_ws, $.content],
+  externals: $ => [$._dummy, $.incidental_ws, $.textblock_fragment],
 
   rules: {
-    text: $ => seq(
+    textblock: $ => seq(
       optional($._dummy),
-      repeat1(seq(optional($.incidental_ws), $.content)),
+      repeat1(seq(optional($.incidental_ws), $.textblock_fragment)),
       optional($.incidental_ws),
     )
   }

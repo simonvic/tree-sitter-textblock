@@ -2,7 +2,7 @@
   "$schema": "https://tree-sitter.github.io/tree-sitter/assets/schemas/grammar.schema.json",
   "name": "textblock",
   "rules": {
-    "text": {
+    "textblock": {
       "type": "SEQ",
       "members": [
         {
@@ -36,7 +36,7 @@
               },
               {
                 "type": "SYMBOL",
-                "name": "content"
+                "name": "textblock_fragment"
               }
             ]
           }
@@ -75,7 +75,7 @@
     },
     {
       "type": "SYMBOL",
-      "name": "content"
+      "name": "textblock_fragment"
     }
   ],
   "inline": [],
