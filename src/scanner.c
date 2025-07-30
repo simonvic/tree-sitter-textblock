@@ -95,6 +95,11 @@ bool tree_sitter_textblock_external_scanner_scan(void* payload, TSLexer* lexer,
 			}
 			skip(lexer);
 		}
+		// ignore empty lines
+		while (lexer->lookahead == '\n' && lexer->get_column(lexer) == 0 &&
+		       !eof(lexer)) {
+			skip(lexer);
+		}
 		if (!is_indent_char(lexer->lookahead)) {
 			// no incidental whitespaces
 			scanner->incidentalWSWidth = 0;
