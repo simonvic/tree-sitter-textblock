@@ -26,18 +26,6 @@ struct Scanner {
 	bool isFirstLine;
 };
 
-static inline void consume(TSLexer* lexer) {
-	lexer->advance(lexer, false);
-}
-
-static inline void skip(TSLexer* lexer) {
-	lexer->advance(lexer, true);
-}
-
-static inline bool eof(TSLexer* lexer) {
-	return lexer->eof(lexer);
-}
-
 void* tree_sitter_textblock_external_scanner_create(void) {
 	struct Scanner* scanner = ts_malloc(sizeof(struct Scanner));
 	scanner->incidentalWSWidth = -1;
@@ -72,6 +60,22 @@ void tree_sitter_textblock_external_scanner_deserialize(void* payload,
 	assert(size == length);
 }
 
+static inline void consume(TSLexer* lexer) {
+	lexer->advance(lexer, false);
+}
+
+static inline void skip(TSLexer* lexer) {
+	lexer->advance(lexer, true);
+}
+
+static inline bool eof(TSLexer* lexer) {
+	return lexer->eof(lexer);
+}
+
+static inline bool is_on_empty_line(TSLexer* lexer) {
+	return lexer->lookahead == '\n' && lexer->get_column(lexer) == 0;
+}
+
 static inline bool is_indent_char(char c) {
 	return c == ' ' || c == '\t';
 }
@@ -95,9 +99,7 @@ bool tree_sitter_textblock_external_scanner_scan(void* payload, TSLexer* lexer,
 			}
 			skip(lexer);
 		}
-		// ignore empty lines
-		while (lexer->lookahead == '\n' && lexer->get_column(lexer) == 0 &&
-		       !eof(lexer)) {
+		while (is_on_empty_line(lexer) && !eof(lexer)) {
 			skip(lexer);
 		}
 		if (!is_indent_char(lexer->lookahead)) {
@@ -105,11 +107,12 @@ bool tree_sitter_textblock_external_scanner_scan(void* payload, TSLexer* lexer,
 			scanner->incidentalWSWidth = 0;
 			return true;
 		}
+		// indentation leader will be the first indentation character
 		scanner->indentationLeader = lexer->lookahead;
 		int minWidth = -1;
 		while (!eof(lexer)) {
 			// ignore empty lines
-			if (lexer->lookahead == '\n' && lexer->get_column(lexer) == 0) {
+			if (is_on_empty_line(lexer)) {
 				skip(lexer);
 				continue;
 			}
@@ -123,7 +126,7 @@ bool tree_sitter_textblock_external_scanner_scan(void* payload, TSLexer* lexer,
 			if (width < minWidth || minWidth == -1) {
 				minWidth = width;
 			}
-			// skip "content" unti new line
+			// skip "textblock_fragment" until new line
 			while (!eof(lexer)) {
 				if (lexer->lookahead == '\n') {
 					skip(lexer);
@@ -143,16 +146,14 @@ bool tree_sitter_textblock_external_scanner_scan(void* payload, TSLexer* lexer,
 	if (valid_symbols[INCIDENTAL_WS] && !scanner->isFirstLine &&
 	    scanner->incidentalWSWidth >= 1) {
 		// incidental whitespaces in empty lines are ignored
-		if (lexer->lookahead == '\n' && lexer->get_column(lexer) == 0) {
+		if (is_on_empty_line(lexer)) {
 			consume(lexer);
 			lexer->result_symbol = TEXTBLOCK_FRAGMENT;
 			return true;
 		}
 		lexer->result_symbol = INCIDENTAL_WS;
-		int parsedIncidentalWS = 0;
-		while (parsedIncidentalWS < scanner->incidentalWSWidth) {
+		for (int i = 0; i < scanner->incidentalWSWidth; i++) {
 			consume(lexer);
-			parsedIncidentalWS++;
 		}
 		return true;
 	}
